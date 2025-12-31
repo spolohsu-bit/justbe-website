@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JustBe - The Quality of Being</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=LXGW+WenKai+TC:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Palette: Organic & Grounded */
+            --bg-base: #FDFCF8;       /* 暖米白 */
+            --bg-secondary: #F4F1EA;  /* 淺灰褐 */
+            --bg-dark: #2C2A26;       /* 深岩石色 */
+            
+            --primary: #8C7B6C;       /* 溫暖泥土 */
+            --primary-dark: #5D5046;
+            
+            --text-main: #3D3D3D;
+            --text-muted: #757575;
+            --text-light: #FDFCF8;
+
+            /* Pillar Colors */
+            --insight-color: #9D8CA1; /* Purple/Insight */
+            --heart-color: #D6A29C;   /* Pink/Heart */
+            --breath-color: #8FB6C6;  /* Blue/Breath */
+            --body-color: #9BB396;    /* Green/Body */
+
+            --container-width: 1100px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        
+        body {
+            font-family: 'LXGW WenKai TC', 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, .quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            color: var(--primary-dark);
+            line-height: 1.2;
+        }
+
+        p {
+            font-weight: 300;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .en-text { font-family: 'Cormorant Garamond', serif; font-style: italic; }
+
+        /* --- Background Art --- */
+        .art-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.5;
+            animation: float-slow 20s infinite alternate;
+        }
+        .blob-1 { width: 600px; height: 600px; background: #EADBC8; top: -100px; right: -150px; }
+        .blob-2 { width: 500px; height: 500px; background: rgba(165, 188, 159, 0.2); bottom: 10%; left: -100px; }
+        @keyframes float-slow {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 50px) scale(1.1); }
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 20px 40px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 100; backdrop-filter: blur(10px);
+            background: rgba(253, 252, 248, 0.85);
+        }
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700;
+            color: var(--primary-dark); text-decoration: none; display: flex; align-items: center; gap: 10px;
+        }
+        .nav-logo svg { height: 32px; width: 32px; fill: var(--primary); }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a { text-decoration: none; color: var(--text-main); font-size: 0.95rem; font-weight: 500; transition: color 0.3s; }
+        nav a:hover { color: var(--primary); }
+        @media (max-width: 768px) { nav ul { display: none; } }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 120px 20px 60px; position: relative;
+        }
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+            max-width: var(--container-width);
+            align-items: center;
+        }
+        .hero-content {
+            text-align: left;
+            display: flex; flex-direction: column; align-items: flex-start;
+        }
+        
+        .hero-logo { width: 80px; height: 80px; margin-bottom: 2rem; animation: breathe 6s infinite ease-in-out; }
+        .hero-logo svg { width: 100%; height: 100%; fill: var(--primary); }
+        @keyframes breathe { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.05); opacity: 1; } }
+
+        .hero h1 { font-size: 5rem; margin-bottom: 1rem; color: var(--primary-dark); }
+        
+        .hero h2 {
+            font-size: 2.2rem; margin-bottom: 1.5rem; font-weight: 400;
+            line-height: 1.3;
+        }
+        
+        .hero .cn-subtitle {
+            font-size: 1.2rem; color: var(--text-muted); margin-bottom: 3rem;
+            letter-spacing: 0.1em; font-weight: 400;
+        }
+
+        .btn-main {
+            padding: 16px 40px; background: var(--primary); color: white; border-radius: 50px;
+            text-decoration: none; font-size: 1.1rem; transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(140, 123, 108, 0.2); letter-spacing: 0.05em;
+        }
+        .btn-main:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+        /* Phone Frame */
+        .phone-frame {
+            border-radius: 40px;
+            border: 8px solid #2C2A26;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            overflow: hidden;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            position: relative;
+            background: #000;
+            line-height: 0;
+        }
+        .phone-frame img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        /* --- Philosophy --- */
+        .section-padding { padding: 120px 20px; }
+        .bg-secondary { background-color: var(--bg-secondary); }
+        
+        .philosophy-grid {
+            max-width: var(--container-width); margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+        }
+        .philosophy-text h3 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+        .philosophy-text .lead { font-size: 1.2rem; color: var(--primary-dark); margin-bottom: 2rem; }
+        
+        /* --- Collections (The Starter Pack) --- */
+        .collections-header { text-align: center; max-width: 700px; margin: 0 auto 60px; }
+        .collections-header h2 { font-size: 3rem; margin-bottom: 1rem; }
+        
+        .collection-cards {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjusted for 4 cards */
+            gap: 30px; max-width: var(--container-width); margin: 0 auto;
+        }
+        .col-card {
+            background: #fff; padding: 40px 30px; border-radius: 20px;
+            transition: transform 0.3s; border: 1px solid rgba(0,0,0,0.03);
+            display: flex; flex-direction: column; align-items: flex-start;
+        }
+        .col-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        
+        .col-icon { font-size: 3rem; margin-bottom: 20px; }
+        .col-title { font-size: 1.4rem; margin-bottom: 5px; color: var(--text-main); font-family: 'Cormorant Garamond', serif; font-weight: 700;}
+        .col-sub { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); margin-bottom: 20px; font-weight: 700; }
+        .col-desc { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.6; }
+        .col-tag { 
+            padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; 
+            background: var(--bg-secondary); color: var(--text-muted);
+            align-self: flex-start;
+        }
+
+        /* --- 4 Pillars --- */
+        .pillars-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 20px; max-width: var(--container-width); margin: 0 auto;
+        }
+        .pillar { text-align: center; padding: 30px 10px; }
+        .pillar-icon { 
+            width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 20px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; color: #fff;
+        }
+        .pi-insight { background: var(--insight-color); }
+        .pi-heart { background: var(--heart-color); }
+        .pi-breath { background: var(--breath-color); }
+        .pi-body { background: var(--body-color); }
+        
+        .pillar h4 { font-size: 1.3rem; margin-bottom: 10px; }
+        .pillar span { display: block; font-size: 0.9rem; margin-bottom: 5px; font-weight: 700; opacity: 0.7;}
+
+        /* --- Science & Spirit --- */
+        .dual-section {
+            background: var(--bg-dark); color: var(--text-light);
+            padding: 100px 20px;
+        }
+        .dual-grid {
+            max-width: var(--container-width); margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1px 1fr; gap: 50px;
+        }
+        .divider { background: rgba(255,255,255,0.1); height: 100%; }
+        
+        .dual-col h3 { color: #fff; font-size: 2rem; margin-bottom: 2rem; display: flex; align-items: center; gap: 15px; }
+        .dual-col p { color: rgba(255,255,255,0.7); font-size: 1.05rem; }
+        .dual-col ul { list-style: none; margin-top: 20px; }
+        .dual-col li { margin-bottom: 15px; padding-left: 20px; position: relative; color: rgba(255,255,255,0.8); font-weight: 300; }
+        .dual-col li::before { content: '•'; position: absolute; left: 0; color: var(--primary); }
+
+        .quote-center {
+            text-align: center; max-width: 800px; margin: 80px auto 0;
+            font-size: 1.8rem; font-family: 'Cormorant Garamond', serif; font-style: italic;
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* --- Footer --- */
+        footer { padding: 80px 20px; text-align: center; background: var(--bg-base); }
+        .footer-logo svg { width: 50px; height: 50px; fill: var(--primary); margin-bottom: 20px; }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero-container { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+            .hero-content { align-items: center; }
+            .philosophy-grid, .dual-grid { grid-template-columns: 1fr; }
+            .divider { display: none; }
+            .hero h1 { font-size: 3.5rem; }
+            .hero h2 { font-size: 1.8rem; }
+            .pillars-grid { grid-template-columns: 1fr 1fr; }
+            .collection-cards { grid-template-columns: 1fr; } /* Stack on mobile */
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="nav-logo">
+            <svg viewBox="0 0 24 24"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/></svg>
+            JustBe
+        </a>
+        <ul>
+            <li><a href="#philosophy">理念</a></li>
+            <li><a href="#collections">體驗</a></li>
+            <li><a href="#science">科學與靈性</a></li>
+            <li><a href="#download">下載</a></li>
+        </ul>
+        <div class="lang-switch" style="margin-left: 20px; font-size: 0.85rem; font-weight: 400; color: var(--text-muted);">
+             <a href="#" class="active" style="margin: 0 5px; color: var(--primary); font-weight: 700; text-decoration: none;">Chinese</a> / <a href="index_en.html" style="margin: 0 5px; color: var(--text-muted); text-decoration: none;">English</a>
+        </div>
+    </nav>
+
+    <div class="art-blob blob-1"></div>
+    <div class="art-blob blob-2"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-logo">
+                    <svg viewBox="0 0 24 24"><g transform="translate(12, 12) scale(0.8) translate(-12, -12)"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/></g></svg>
+                </div>
+                <h1>Just Be.</h1>
+                <h2>"The quality of your being shapes<br>the quality of your life."</h2>
+                <p class="cn-subtitle">存在的品質，決定生命的品質。</p>
+                <a href="#download" class="btn-main">開始練習「存在」</a>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="phone-frame">
+                    <img src="images/screenshot-1.png" alt="JustBe App Dashboard">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section id="philosophy" class="section-padding bg-secondary">
+        <div class="philosophy-grid">
+            <div class="philosophy-text">
+                <h3>What is Being?<br><span style="font-size: 1.5rem; opacity: 0.6;">什麼是存在？</span></h3>
+                <p class="lead">Being 不是一種靜態的狀態，而是一種動態的品質。<br>它是你如何「臨在」(presence) 於每個當下、每次呼吸。</p>
+                <p>JustBe 提供了一套基於神經科學的工具，幫助你提升這種「存在的品質」——透過 <strong>超越小我的洞察</strong>、<strong>內在神經系統的調節</strong>、<strong>溫暖的情緒承接</strong> 與 <strong>扎根當下的連結</strong>，讓你的 Being 變得更完整、更真實。</p>
+                <p>練習 Being，是為了從「反應」模式，切換回「回應」模式。</p>
+            </div>
+            
+            <!-- 4 Pillars Grid embedded here -->
+            <div class="pillars-grid" style="grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div class="pillar">
+                    <div class="pillar-icon pi-insight">👁</div>
+                    <h4>Insight 洞察</h4>
+                    <span>Beyond Ego 不被小我綁架</span>
+                    <p style="font-size: 0.9rem;">看清念頭的本質，找回覺察的主權。</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-icon pi-heart">♥</div>
+                    <h4>Heart 心</h4>
+                    <span>Emotional Warmth 情緒的溫度</span>
+                    <p style="font-size: 0.9rem;">帶著溫度的慈悲，溫柔承接每個感受。</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-icon pi-breath">≋</div>
+                    <h4>Breath 呼吸</h4>
+                    <span>Inner Tuning 內在調整</span>
+                    <p style="font-size: 0.9rem;">神經系統的調節開關，找回內在節奏。</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-icon pi-body">○</div>
+                    <h4>Body 身體</h4>
+                    <span>Connection & Grounding 與當下的連結</span>
+                    <p style="font-size: 0.9rem;">靈魂的家，扎根於此刻的最強錨點。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Experience Section (New) -->
+    <section class="section-padding">
+        <div style="max-width: var(--container-width); margin: 0 auto; text-align: center;">
+            <h2 style="font-size: 3rem; margin-bottom: 60px;">Experience the Flow</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+                <div class="phone-frame" style="max-width: 280px;">
+                    <img src="images/screenshot-4.png" alt="Collections Detail">
+                </div>
+                <div class="phone-frame" style="max-width: 280px;">
+                    <img src="images/screenshot-3.png" alt="In Session">
+                </div>
+            </div>
+            <div style="margin-top: 60px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                <h3 style="font-size: 2rem; margin-bottom: 20px;">從選擇到沈浸</h3>
+                <p>我們精心設計了每一種互動。不論是選擇適合當下的「Collection」，還是進入練習後的視覺引導，都旨在創造一個能讓你完全放鬆、回到感官的空間。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collections Section -->
+    <section id="collections" class="section-padding bg-secondary">
+        <div class="collections-header">
+            <h2>The Starter Pack</h2>
+            <p>針對現代生活的核心狀態，我們設計了專屬的練習。</p>
+        </div>
+
+        <div class="collection-cards">
+            
+            <!-- Daily Core Presence (Added) -->
+            <div class="col-card">
+                <div class="col-icon">☀️</div>
+                <div class="col-title">Daily Core</div>
+                <div class="col-sub">日常基礎練習</div>
+                <div class="col-desc">
+                    最純粹的正念基礎練習。透過觀察念頭、覺察呼吸、感受身體，隨時回到當下，不需要特殊情境。
+                </div>
+                <div class="col-tag">Daily Practice</div>
+            </div>
+
+            <!-- Cat Mode -->
+            <div class="col-card">
+                <div class="col-icon">🐱</div>
+                <div class="col-title">Cat Mode</div>
+                <div class="col-sub">貓模式：柔和覺察</div>
+                <div class="col-desc">
+                    向貓咪學習「允許休息」的藝術。這是一個 <strong>非線性、探索式</strong> 的體驗，不需要用力專注，只需要帶著好奇心去玩耍。
+                </div>
+                <div class="col-tag">For Relaxation</div>
+            </div>
+
+            <!-- The Anchor -->
+            <div class="col-card">
+                <div class="col-icon">⚓</div>
+                <div class="col-title">The Anchor</div>
+                <div class="col-sub">焦慮穩定練習</div>
+                <div class="col-desc">
+                    當情緒如浪潮襲來，你需要一個錨。透過 <strong>「甩動釋放」</strong> 與 <strong>「生理性嘆息」</strong>，讓神經系統回到平靜的海面。
+                </div>
+                <div class="col-tag">For Anxiety</div>
+            </div>
+
+            <!-- Night Sanctuary -->
+            <div class="col-card">
+                <div class="col-icon">🌙</div>
+                <div class="col-title">Night Sanctuary</div>
+                <div class="col-sub">夜晚庇護所</div>
+                <div class="col-desc">
+                    睡眠不是你「做」的事，而是你「允許」的事。在一個 <strong>可以放手的安全空間</strong>，引導神經系統進入深層休息。
+                </div>
+                <div class="col-tag">For Sleep</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Science & Spirit Section -->
+    <section id="science" class="dual-section">
+        <div class="dual-grid">
+            <!-- Science -->
+            <div class="dual-col">
+                <h3>🧪 The Science <span style="font-size:1rem; opacity:0.7; margin-left:10px;">科學視角</span></h3>
+                <p>Just Be 的練習建立在現代神經科學的基礎上：</p>
+                <ul>
+                    <li><strong>Polyvagal Theory (多重迷走神經理論)</strong>：我們利用 <strong>「生理性嘆息 (Physiological Sigh)」</strong> 等呼吸法，直接啟動「腹側迷走神經」，從生理層面關閉壓力反應。
+                        <div style="margin-top: 10px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 10px; font-size: 0.9rem;">
+                            <strong style="color: var(--primary);">🌬️ 試試看：大腦內建的降階開關</strong><br>
+                            1. 鼻子吸氣（吸到舒服的邊界）。<br>
+                            2. 再偷吸一小口（把肺泡撐開）。<br>
+                            3. 用嘴巴長長嘆氣「哈——」。<br>
+                            <span style="opacity: 0.7; font-size: 0.85rem;">重複 3 次，感受身體的變化。</span>
+                        </div>
+                    </li>
+                    <li><strong>Somatic Regulation (體感調節)</strong>：焦慮儲存在身體裡。透過 <strong>「甩動釋放 (Shake Out)」</strong> 與觸覺回饋，我們幫助你釋放神經系統累積的電荷。</li>
+                    <li><strong>Neuroplasticity (神經可塑性)</strong>：大腦是可以重塑的。每日的 <strong>微習慣 (Micro-habits)</strong> 練習，正在建立新的神經迴路，培養長期的情緒韌性。</li>
+                </ul>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Spirit -->
+            <div class="dual-col">
+                <h3>✨ The Spirit <span style="font-size:1rem; opacity:0.7; margin-left:10px;">靈性視角</span></h3>
+                <p>我們同時也汲取了跨文化的古老智慧：</p>
+                <ul>
+                    <li><strong>Wholeness (本自具足)</strong>：你不需要向外抓取價值。你的存在本身 (Being) 就是完整的。</li>
+                    <li><strong>Surrender (臣服的藝術)</strong>：如 Night Sanctuary 所教導，真正的力量來自於放下小我的控制，順應生命的流動。</li>
+                    <li><strong>Presence (當下的力量)</strong>：過去與未來都是幻象。生命只在當下展開。Being 就是與生命源頭連結。</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="quote-center">
+            "Science explains why it works. Spirit explains why it matters."
+            <div style="font-size: 1rem; margin-top: 15px; font-family: 'Noto Sans TC'; font-style: normal;">
+                科學解釋了它為何有效。靈性解釋了它為何重要。
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="download">
+        <div class="footer-logo">
+             <svg viewBox="0 0 24 24"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/></svg>
+        </div>
+        
+        <h3 style="margin-bottom: 20px;">Begin Your Journey</h3>
+        <p style="margin-bottom: 40px; color: #888;">The quality of your presence shapes the quality of your being.</p>
+        
+        <a href="#" class="btn-main">Download on App Store</a>
+        
+        <div style="margin-top: 60px; font-size: 0.8rem; color: #aaa; border-top: 1px solid #eee; padding-top: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
+            &copy; 2025 JustBe. All Rights Reserved.
+        </div>
+    </footer>
+
+</body>
+</html>

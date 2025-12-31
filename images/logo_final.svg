@@ -1,0 +1,25 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background: Soft Paper White -->
+    <rect width="1024" height="1024" fill="#FDFCF8"/>
+    
+    <!-- Enso Circle: The Light Brown Ring -->
+    <!-- Using a slightly irregular path to mimic the screenshot's organic feel -->
+    <path d="M512,172 
+             C324.2,172 172,324.2 172,512 
+             C172,699.8 324.2,852 512,852 
+             C699.8,852 852,699.8 852,512 
+             C852,324.2 699.8,172 512,172 Z 
+             M512,802 
+             C351.8,802 222,672.2 222,512 
+             C222,351.8 351.8,222 512,222 
+             C672.2,222 802,351.8 802,512 
+             C802,672.2 672.2,802 512,802 Z" 
+          fill="#EADBC8" 
+          transform="translate(512, 512) rotate(20) translate(-512, -512)"/>
+
+    <!-- Leaf Logo: The Dark Brown Center -->
+    <g transform="translate(256, 256) scale(21.3)">
+        <path d="M17,8 C8,10 5.9,16.17 3.82,21.34 L5.71,22 L6.66,19.7 C7.14,19.87 7.64,20 8,20 C19,20 22,3 22,3 C21,5 14,5.25 9,6.25 C4,7.25 2,11.5 2,13.5 C2,15.5 3.75,17.25 3.75,17.25 C7,8 17,8 17,8 Z" 
+              fill="#8C7B6C"/>
+    </g>
+</svg>

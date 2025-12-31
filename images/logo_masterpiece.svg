@@ -1,0 +1,83 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <!-- FILTER 1: Rough Paper Texture (for background) -->
+        <filter id="paperTexture">
+            <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="5" result="noise"/>
+            <feDiffuseLighting lighting-color="#FDFCF8" surfaceScale="2" result="light">
+                <feDistantLight azimuth="45" elevation="60"/>
+            </feDiffuseLighting>
+            <feComposite operator="in" in2="SourceGraphic"/>
+        </filter>
+
+        <!-- FILTER 2: Ink Bleed / Brush Stroke (for Enso) -->
+        <filter id="inkBleed" x="-20%" y="-20%" width="140%" height="140%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="15" xChannelSelector="R" yChannelSelector="G"/>
+            <feGaussianBlur stdDeviation="1.5" result="blur"/>
+            <feComposite operator="over" in="SourceGraphic" in2="blur"/>
+        </filter>
+
+        <!-- FILTER 3: Watercolor Wash (for Leaf) -->
+        <filter id="watercolor" x="-20%" y="-20%" width="140%" height="140%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="4" seed="5" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="10"/>
+            <feGaussianBlur stdDeviation="2"/>
+        </filter>
+        
+        <!-- GRADIENT: Deep Earth/Ink -->
+        <linearGradient id="inkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#8C7B6C"/>
+            <stop offset="50%" stop-color="#6D5A43"/>
+            <stop offset="100%" stop-color="#4A3B2A"/>
+        </linearGradient>
+
+        <!-- GRADIENT: Leaf Life -->
+        <linearGradient id="leafGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#A5BC9F"/>
+            <stop offset="100%" stop-color="#8C7B6C"/>
+        </linearGradient>
+    </defs>
+
+    <!-- Background with Paper Texture -->
+    <rect width="1024" height="1024" fill="#FDFCF8"/>
+    <rect width="1024" height="1024" fill="#FDFCF8" filter="url(#paperTexture)" opacity="0.5"/>
+    
+    <!-- Main Content Group -->
+    <g transform="translate(512, 512)">
+        
+        <!-- The Enso (Hand-drawn style path) -->
+        <!-- Using a complex path to simulate variable brush width -->
+        <g filter="url(#inkBleed)" transform="rotate(20)">
+            <path d="M0,-340 
+                     C200,-340 380,-200 380,0 
+                     C380,220 200,380 0,380 
+                     C-220,380 -380,200 -380,0 
+                     C-380,-180 -250,-330 -100,-340
+                     L-100,-290
+                     C-220,-280 -320,-160 -320,0
+                     C-320,180 -160,320 0,320
+                     C160,320 320,160 320,0
+                     C320,-160 180,-290 0,-290 Z" 
+                  fill="url(#inkGradient)" opacity="0.9"/>
+            
+            <!-- Second stroke for depth -->
+            <path d="M-50,-330 C-200,-320 -360,-180 -360,0 C-360,190 -190,360 0,360 C190,360 360,190 360,0 C360,-180 200,-320 20,-320" 
+                  fill="none" stroke="#EADBC8" stroke-width="10" stroke-linecap="round" opacity="0.6"/>
+        </g>
+
+        <!-- The Leaf (Organic & Floating) -->
+        <g transform="translate(0, 50) scale(1.2)" filter="url(#watercolor)">
+             <!-- Leaf Shadow/Ink Pool -->
+            <path d="M10,-100 C-100,-50 -150,80 -200,200 L-160,215 C-150,220 -140,225 -130,225 C100,225 170,-150 170,-150 C170,-150 20,-190 10,-100 Z" 
+                  fill="#8C7B6C" opacity="0.2" transform="translate(10, 10) scale(0.18) translate(-256, -256)"/>
+
+             <!-- The Leaf Itself (Rescaled from original path logic but hand-drawn feel) -->
+             <path d="M17,8 C8,10 5.9,16.17 3.82,21.34 L5.71,22 L6.66,19.7 C7.14,19.87 7.64,20 8,20 C19,20 22,3 22,3 C21,5 14,5.25 9,6.25 C4,7.25 2,11.5 2,13.5 C2,15.5 3.75,17.25 3.75,17.25 C7,8 17,8 17,8 Z"
+                   transform="translate(-13, -13) scale(20)"
+                   fill="url(#leafGradient)"/>
+                   
+             <!-- Leaf Veins -->
+             <path d="M0,0 Q5,20 8,30" transform="translate(-10, -50) scale(5)" stroke="#FDFCF8" stroke-width="0.5" fill="none" opacity="0.6"/>
+        </g>
+    </g>
+</svg>
