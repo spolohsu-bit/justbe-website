@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="JustBe Explorer's Guide - Learn how to be with yourself in the present moment.">
+    <title>JustBe Explorer's Guide</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Palette - Organic Minimalism */
+            --bg-base: #F8F7F4;       /* Warm Beige */
+            --bg-card: #FFFFFF;       /* Pure White Card */
+            --bg-secondary: #F0EFE9;  /* Light Taupe */
+
+            --primary: #8B7355;       /* Warm Earth */
+            --primary-light: #A69076; 
+            --primary-dark: #5D4D3A;
+            
+            --accent: #E8C4A2;        /* Soft Peach */
+
+            --text-main: #4A453E;     /* Deep Brown-Grey */
+            --text-muted: #857F76;    /* Muted Grey */
+            --text-light: #F8F7F4;
+
+            /* Four Pillar Colors - Muted & Organic */
+            --insight-color: #9D8CA1; /* Muted Purple */
+            --heart-color: #D6A29C;   /* Dusty Pink */
+            --breath-color: #8FB6C6;  /* Muted Blue */
+            --body-color: #9BB396;    /* Sage Green */
+
+            --container-width: 760px;
+            --radius-soft: 12px;
+            --radius-pill: 50px;
+        }
+
+        /* === Reset & Base === */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            line-height: 1.9; /* More breathing room */
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* === Icons (SVG) === */
+        .icon {
+            width: 1.2em;
+            height: 1.2em;
+            fill: currentColor;
+            vertical-align: text-bottom;
+            display: inline-block;
+        }
+        .icon-lg { width: 1.5em; height: 1.5em; }
+        .icon-xl { width: 2em; height: 2em; }
+
+        /* === Typography === */
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 500;
+            color: var(--primary-dark);
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+        }
+
+        h1 { font-size: 3.5rem; font-style: italic; margin-bottom: 0.5rem; }
+        h2 { font-size: 2.4rem; margin-top: 3.5rem; margin-bottom: 1.5rem; position: relative; display: inline-block; }
+        h3 { font-size: 1.6rem; margin-top: 2.5rem; margin-bottom: 1rem; color: var(--primary); }
+        h4 { font-size: 1.25rem; margin-bottom: 0.8rem; font-family: 'Noto Sans', sans-serif; font-weight: 700; }
+
+        /* Decorative underline for H2 */
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 1px;
+            background-color: var(--accent);
+        }
+
+        p {
+            font-weight: 300;
+            color: var(--text-main);
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+        }
+
+        .subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.8rem;
+            color: var(--text-main);
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            padding-left: 0.5rem;
+        }
+
+        strong {
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        /* === Navigation === */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(248, 247, 244, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-style: italic;
+        }
+
+        .nav-logo svg {
+            height: 28px;
+            width: 28px;
+            fill: var(--primary);
+        }
+
+        .nav-back {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-back:hover { color: var(--primary); }
+
+        /* === Main Container === */
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 140px 24px 100px;
+        }
+
+        /* === Header === */
+        .guide-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        /* === Tab Switching === */
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 60px;
+        }
+
+        .tab {
+            padding: 12px 36px;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: var(--radius-pill);
+            font-family: 'Noto Sans', sans-serif;
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab:hover {
+            color: var(--primary);
+            background: rgba(139, 115, 85, 0.05);
+        }
+
+        .tab.active {
+            color: var(--primary-dark);
+            background: #EDEBE6;
+            font-weight: 600;
+        }
+
+        /* === Content Sections === */
+        .guide-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .guide-content.active {
+            display: block;
+            opacity: 1;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* === Visual Elements === */
+        .screenshot-container {
+            margin: 40px auto;
+            text-align: center;
+            position: relative;
+        }
+
+        .screenshot {
+            border-radius: 16px;
+            box-shadow: 0 20px 40px -10px rgba(93, 77, 58, 0.15);
+            width: 100%;
+            max-width: 280px;
+            transition: transform 0.4s ease;
+            display: inline-block;
+        }
+        
+        .screenshot:hover {
+            transform: translateY(-5px);
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 32px;
+            margin: 40px 0;
+            justify-items: center;
+        }
+
+        /* === Info Cards === */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius-soft);
+            padding: 32px;
+            margin: 32px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .tip-box {
+            background: rgba(232, 196, 162, 0.15); /* Low opacity accent */
+            border-left: none;
+            padding: 24px 30px;
+            margin: 40px 0;
+            border-radius: var(--radius-soft);
+            color: var(--primary-dark);
+        }
+
+        .tip-box h4 {
+            color: #8B5E3C;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* === Pillar Badges === */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .pillar-card {
+            background: #fff;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            border: 1px solid rgba(0,0,0,0.03);
+            transition: transform 0.3s;
+        }
+        
+        .pillar-card:hover { transform: translateY(-3px); }
+
+        .pillar-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .p-icon { width: 24px; height: 24px; }
+        
+        .c-insight { color: var(--insight-color); }
+        .c-breath { color: var(--breath-color); }
+        .c-heart { color: var(--heart-color); }
+        .c-body { color: var(--body-color); }
+
+        .pillar-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* === Steps Flow === */
+        .flow-step {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 80px;
+            align-items: flex-start;
+        }
+
+        .step-marker {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            color: rgba(139, 115, 85, 0.2);
+            line-height: 1;
+            font-style: italic;
+        }
+
+        .step-content { flex: 1; }
+
+        /* === Footer === */
+        footer {
+            text-align: center;
+            padding: 80px 20px 40px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            margin-top: 80px;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+            margin: 0 10px;
+            position: relative;
+        }
+        
+        footer a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        footer a:hover::after { width: 100%; }
+
+        /* === Responsive === */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; margin-top: 2.5rem; }
+            .container { padding: 100px 24px 60px; }
+            .flow-step { flex-direction: column; gap: 10px; }
+            .step-marker { font-size: 2rem; margin-bottom: 0; }
+            .screenshot { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index_en.html" class="nav-logo">
+            <svg viewBox="0 0 24 24"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/></svg>
+            Just Be
+        </a>
+        <a href="index_en.html" class="nav-back">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"/></svg>
+            Back
+        </a>
+    </nav>
+
+    <div class="container">
+
+        <!-- Header -->
+        <header class="guide-header">
+            <h1>Explorer's Guide</h1>
+            <p class="subtitle">The quality of your being shapes the quality of your life.</p>
+        </header>
+
+        <!-- Tabs -->
+        <div class="tab-container">
+            <button class="tab active" data-content="start">First Encounter</button>
+            <button class="tab" data-content="deep">Deep Dive</button>
+        </div>
+
+        <!-- Quick Start / First Encounter -->
+        <section id="start-content" class="guide-content active">
+            
+            <div class="flow-step">
+                <div class="step-marker">01</div>
+                <div class="step-content">
+                    <h3>Choose Your State</h3>
+                    <p>JustBe offers curated "Collections" for different moments in your life. These are not task lists, but gentle responses to your current state.</p>
+                    <p>Try <strong>Daily Core</strong> for a foundational practice, or <strong>The Anchor</strong> when you need stability.</p>
+                    <div class="screenshot-container">
+                        <img src="Screenshots/AppStore/en/02-collections.png" alt="Select Collection" class="screenshot" loading="lazy">
+                    </div>
+                </div>
+            </div>
+
+            <div class="flow-step">
+                <div class="step-marker">02</div>
+                <div class="step-content">
+                    <h3>Be With Yourself</h3>
+                    <p>Tap <strong>Start Session</strong>. This is not a test; there are no right answers. Simply allow yourself to be immersed in the light and sound.</p>
+                    <div class="screenshot-grid">
+                        <img src="Screenshots/AppStore/en/06-focus-mode-glow.png" alt="Glow Mode" class="screenshot" loading="lazy">
+                        <img src="Screenshots/AppStore/en/07-focus-mode-cat.png" alt="Cat Mode" class="screenshot" loading="lazy">
+                    </div>
+                    <p class="subtitle" style="margin-top: 20px;">Tap the screen to hide the interface, leaving only pure presence.</p>
+                </div>
+            </div>
+
+            <div class="flow-step">
+                <div class="step-marker">03</div>
+                <div class="step-content">
+                    <h3>Explore The Practices</h3>
+                    <p>During a session, practice items will appear on screen. <strong>Tap any text</strong> to view the full guidance.</p>
+                    <div class="screenshot-container">
+                        <img src="Screenshots/AppStore/en/08-item-detail-guide.png" alt="Item Detail Guide" class="screenshot" loading="lazy">
+                    </div>
+                    <p class="subtitle" style="margin-top: 15px;">Each practice includes a Description and a full Guide to help you understand and experience it deeply.</p>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <h4>
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>
+                    Gentle Reminder
+                </h4>
+                <p>JustBe removes all "stressors": no streaks, no scores, no red notification dots. Come back at your own rhythm, whenever you need.</p>
+            </div>
+
+        </section>
+
+        <!-- Deep Dive Content -->
+        <section id="deep-content" class="guide-content">
+            
+            <h2>The Four Pillars</h2>
+            <p>Our nervous system speaks different languages. JustBe translates these into four dimensions:</p>
+
+            <div class="pillars-grid">
+                <div class="pillar-card">
+                    <div class="pillar-header c-body">
+                        <svg class="icon p-icon" viewBox="0 0 24 24"><path d="M12 2C12 2 4 4 4 12C4 17 6 22 12 22C18 22 20 17 20 12C20 4 12 2 12 2ZM11 6C11 5.45 11.45 5 12 5C12.55 5 13 5.45 13 6V11H17C17.55 11 18 11.45 18 12C18 12.55 17.55 13 17 13H13V18C13 18.55 12.55 19 12 19C11.45 19 11 18.55 11 18V13H7C6.45 13 6 12.55 6 12C6 11.45 6.45 11 7 11H11V6Z"/></svg>
+                        <span>Body</span>
+                    </div>
+                    <p class="pillar-desc"><strong>Green · Grounding & Connection</strong><br>When anxiety makes us feel untethered, the body is our best anchor. Reclaim the tangible sense of "I am here" through Proprioception.</p>
+                </div>
+
+                <div class="pillar-card">
+                    <div class="pillar-header c-breath">
+                        <svg class="icon p-icon" viewBox="0 0 24 24"><path d="M12 2c-5.33 4.55-8 8.48-8 11.8 0 4.98 3.8 8.2 8 8.2s8-3.22 8-8.2c0-3.32-2.67-7.25-8-11.8zm0 18c-3.35 0-6-2.57-6-6.2 0-2.34 1.95-5.44 6-9.14 4.05 3.7 6 6.8 6 9.14 0 3.63-2.65 6.2-6 6.2z"/></svg>
+                        <span>Breath</span>
+                    </div>
+                    <p class="pillar-desc"><strong>Blue · Flow & Regulation</strong><br>Breath is the bridge between body and mind. By shifting your breathing rhythm, you directly signal "safety" to your vagus nerve.</p>
+                </div>
+
+                <div class="pillar-card">
+                    <div class="pillar-header c-heart">
+                        <svg class="icon p-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                        <span>Heart</span>
+                    </div>
+                    <p class="pillar-desc"><strong>Pink · Warmth & Compassion</strong><br>The antidote to inner criticism isn't harsher discipline, but warmth. Heart practices invite you to treat yourself like a dear friend.</p>
+                </div>
+
+                <div class="pillar-card">
+                    <div class="pillar-header c-insight">
+                        <svg class="icon p-icon" viewBox="0 0 24 24"><path d="M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z"/></svg>
+                        <span>Insight</span>
+                    </div>
+                    <p class="pillar-desc"><strong>Purple · Clarity & Space</strong><br>Step back and watch thoughts pass like clouds. This isn't about "stopping thought," but about "not being a victim of it."</p>
+                </div>
+            </div>
+
+            <h2>Advanced Features</h2>
+
+            <div class="card">
+                <h4>
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                    Sonic Atmosphere
+                </h4>
+                <p>Sound is another form of breath. You can enable background ambiance in Settings.</p>
+                <p>This isn't just music; it's an auditory boundary for your practice, helping you settle from the external noise into internal silence.</p>
+            </div>
+            
+            <div class="card">
+                <h4>
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+                    Custom Collections
+                </h4>
+                <p>If the built-in combinations don't meet your needs, create your own sanctuary.</p>
+                <ol>
+                    <li>Tap the <strong>+</strong> icon on the Collections page.</li>
+                    <li>Name your collection (e.g., "Morning Ritual" or "Midday Reset").</li>
+                    <li>Select the practice items that resonate most.</li>
+                </ol>
+            </div>
+
+            <div class="card">
+                <h4>
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+                    Sharing & Keeping
+                </h4>
+                <p>Your peace belongs to you. JustBe does not upload your data to the cloud; everything is safely stored on your device.</p>
+                <p>You can <strong>Export</strong> your crafted collections as files to share with friends or keep as backups. It is a digital gift of self-care.</p>
+            </div>
+
+            <div style="margin-top: 60px; padding-top: 40px; border-top: 1px solid rgba(0,0,0,0.05);">
+                <h3>Details Waiting to be Found</h3>
+                <p>JustBe is designed with the gentleness of "non-disturbance." There are many subtle choices hidden in the corners of the interface, waiting for you to discover:</p>
+                <ul style="margin-top: 20px;">
+                    <li><strong>Autonomy of Light & Sound</strong>: You decide whether the screen stays awake or dims naturally during a session, and whether you want the company of ambient sound.</li>
+                    <li><strong>The Art of Space</strong>: Your "Just Be" page doesn't always need to be full. You can filter the Pillars you want to see, or hide items you don't need right now. Keep only what touches you in this moment; let the rest remain invisible.</li>
+                </ul>
+                <p class="subtitle" style="margin-top: 30px; font-size: 1.1rem;">This is a space where "subtraction" is allowed. Adjust it as you wish, until it feels like home.</p>
+            </div>
+
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 JustBe. Designed for Quality of Presence.</p>
+        <p style="margin-top: 16px;">
+            <a href="index_en.html">Home</a>
+            <a href="privacy.html">Privacy Policy</a>
+        </p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Tab Switching
+        const tabs = document.querySelectorAll('.tab');
+        const contents = document.querySelectorAll('.guide-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+
+                tab.classList.add('active');
+                const contentId = tab.getAttribute('data-content') + '-content';
+                document.getElementById(contentId).classList.add('active');
+            });
+        });
+
+        // Image Lazy Loading
+        if ('loading' in HTMLImageElement.prototype) {
+            const images = document.querySelectorAll('img[loading="lazy"]');
+            images.forEach(img => { img.src = img.src; });
+        } else {
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
+            document.body.appendChild(script);
+        }
+    </script>
+</body>
+</html>
