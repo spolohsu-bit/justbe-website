@@ -230,6 +230,66 @@
             color: rgba(255,255,255,0.9);
         }
 
+        /* --- Modal Styles --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(44, 42, 38, 0.4); backdrop-filter: blur(8px);
+            z-index: 1000; opacity: 0; visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex; justify-content: center; align-items: center;
+            padding: 20px;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        
+        .modal-card {
+            background: #FDFCF8; width: 100%; max-width: 600px;
+            border-radius: 24px; padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative; overflow-y: auto; max-height: 90vh;
+        }
+        .modal-overlay.active .modal-card { transform: translateY(0) scale(1); }
+        
+        .modal-close {
+            position: absolute; top: 20px; right: 20px;
+            width: 36px; height: 36px; border-radius: 50%;
+            background: var(--bg-secondary); border: none;
+            color: var(--text-muted); font-size: 1.2rem;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
+        }
+        .modal-close:hover { background: var(--primary); color: white; }
+        
+        .modal-icon { font-size: 3rem; margin-bottom: 15px; }
+        .modal-title { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--primary-dark); margin-bottom: 5px; }
+        .modal-tagline { font-family: 'LXGW WenKai TC', sans-serif; font-size: 1.1rem; color: var(--primary); margin-bottom: 25px; font-style: italic; }
+        
+        .modal-section-title {
+            font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em;
+            color: var(--text-muted); margin-bottom: 15px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 5px;
+        }
+        
+        .modal-flow { margin-bottom: 30px; }
+        .flow-step { display: flex; align-items: center; margin-bottom: 12px; }
+        .flow-pill {
+            width: 24px; height: 24px; border-radius: 50%; margin-right: 12px;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+            font-size: 0.8rem; color: white;
+        }
+        .flow-text { font-size: 1rem; color: var(--text-main); }
+        .flow-desc { font-size: 0.9rem; color: var(--text-muted); margin-left: 36px; display: block; margin-top: -5px; }
+
+        .modal-gem {
+            background: var(--bg-secondary); padding: 25px; border-radius: 16px;
+            font-family: 'LXGW WenKai TC', sans-serif; color: var(--text-main);
+            line-height: 1.8; margin-top: 30px; position: relative;
+        }
+        .modal-gem::before {
+            content: "“"; position: absolute; top: 10px; left: 15px;
+            font-family: serif; font-size: 3rem; color: var(--primary); opacity: 0.2;
+        }
+
         /* --- Footer --- */
         footer { padding: 80px 20px; text-align: center; background: var(--bg-base); }
         .footer-logo svg { width: 50px; height: 50px; fill: var(--primary); margin-bottom: 20px; }
@@ -367,7 +427,7 @@
         <div class="collection-cards">
             
             <!-- Daily Core Presence (Added) -->
-            <div class="col-card">
+            <div class="col-card" onclick="openModal('daily-core')" style="cursor: pointer;">
                 <div class="col-icon">☀️</div>
                 <div class="col-title">Daily Core</div>
                 <div class="col-sub">日常基礎練習</div>
@@ -378,7 +438,7 @@
             </div>
 
             <!-- Cat Mode -->
-            <div class="col-card">
+            <div class="col-card" onclick="openModal('cat-mode')" style="cursor: pointer;">
                 <div class="col-icon">🐱</div>
                 <div class="col-title">Cat Mode</div>
                 <div class="col-sub">貓模式：柔和覺察</div>
@@ -389,7 +449,7 @@
             </div>
 
             <!-- The Anchor -->
-            <div class="col-card">
+            <div class="col-card" onclick="openModal('the-anchor')" style="cursor: pointer;">
                 <div class="col-icon">⚓</div>
                 <div class="col-title">The Anchor</div>
                 <div class="col-sub">焦慮穩定練習</div>
@@ -400,7 +460,7 @@
             </div>
 
             <!-- Night Sanctuary -->
-            <div class="col-card">
+            <div class="col-card" onclick="openModal('night-sanctuary')" style="cursor: pointer;">
                 <div class="col-icon">🌙</div>
                 <div class="col-title">Night Sanctuary</div>
                 <div class="col-sub">夜晚庇護所</div>
@@ -472,5 +532,122 @@
         </div>
     </footer>
 
+    <!-- Modal -->
+    <div class="modal-overlay" id="collectionModal" onclick="closeModal(event)">
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal(event)">×</button>
+            <div class="modal-content">
+                <!-- Content injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        const collectionData = {
+            'daily-core': {
+                icon: '☀️',
+                title: 'Daily Core',
+                tagline: '簡單跟自己打聲招呼。',
+                flow: [
+                    { pillar: 'pi-insight', name: 'Body First', desc: '把注意力帶回家，安頓在身體裡' },
+                    { pillar: 'pi-breath', name: '3-Breath Reset', desc: '暫停鍵。三個溫柔呼吸，斷開自動導航' },
+                    { pillar: 'pi-heart', name: 'Self-Trust', desc: '建立內在底氣，相信自己能一步步面對' },
+                    { pillar: 'pi-body', name: 'Ground & Stack', desc: '物理上的穩定，下盤扎根，上身柔軟' }
+                ],
+                gem: '這不是一個「任務清單」，而是一個「問候儀式」。重點在於連結，而不是完成。在開始忙碌的一天前，先花片刻單純存在。'
+            },
+            'cat-mode': {
+                icon: '🐱',
+                title: 'Cat Mode',
+                tagline: '當一下貓：身體放柔、吐氣放長。',
+                flow: [
+                    { pillar: 'pi-body', name: 'Soft Paws', desc: '像貓掌一樣柔軟地接觸，被大地托住' },
+                    { pillar: 'pi-breath', name: 'The Purr', desc: '像貓咪打呼嚕一樣的震動調節' },
+                    { pillar: 'pi-heart', name: 'Sunbeam Nap', desc: '沐浴在「無所事事」的權利中' },
+                    { pillar: 'pi-insight', name: 'Curious Whiskers', desc: '像貓鬍鬚一樣靈敏但不評判的偵測' }
+                ],
+                gem: '你不需要「更專注」，只要「更柔軟」就好。貓咪不會因為大白天睡覺而感到愧疚，牠們只是自然地接受那份溫暖。'
+            },
+            'the-anchor': {
+                icon: '⚓',
+                title: 'The Anchor',
+                tagline: '在浪裡抓住錨點。',
+                flow: [
+                    { pillar: 'pi-body', name: 'The Shake Out', desc: '甩掉交感神經的過剩電荷' },
+                    { pillar: 'pi-body', name: 'See the Spot', desc: '對焦慮說：「我看見你了」' },
+                    { pillar: 'pi-breath', name: 'Physiological Sigh', desc: '大腦內建的物理降壓開關' },
+                    { pillar: 'pi-heart', name: 'I\'m Here', desc: '不解決問題，只陪伴自己' }
+                ],
+                gem: '你不需要「解決」焦慮，只需要「調節」它。當前額葉斷線時，我們不講道理，只講體感。給焦慮一點空間，像是允許一個不速之客暫時坐在角落。'
+            },
+            'night-sanctuary': {
+                icon: '🌙',
+                title: 'Night Sanctuary',
+                tagline: '一個可以放手的安全空間。',
+                flow: [
+                    { pillar: 'pi-insight', name: 'Resting is Enough', desc: '放下「必須睡著」的壓力' },
+                    { pillar: 'pi-insight', name: 'Today is Done', desc: '關閉心智分頁，卸載今日' },
+                    { pillar: 'pi-body', name: 'Sinking', desc: '完全交付給床鋪，不用支撐自己' },
+                    { pillar: 'pi-breath', name: 'The Long Fade', desc: '讓呼吸漸漸消融在安靜裡' }
+                ],
+                gem: '睡眠不是你能「做」的事，而是一件你只能「允許」發生的事。我們不與失眠戰鬥，而是創造一個溫柔的空間，讓身心自然「降檔」。'
+            }
+        };
+
+        function openModal(id) {
+            const data = collectionData[id];
+            if (!data) return;
+
+            const modal = document.getElementById('collectionModal');
+            const content = modal.querySelector('.modal-content');
+            
+            let flowHtml = '';
+            data.flow.forEach(step => {
+                let iconChar = '';
+                if(step.pillar.includes('insight')) iconChar = '👁';
+                if(step.pillar.includes('heart')) iconChar = '♥';
+                if(step.pillar.includes('breath')) iconChar = '≋';
+                if(step.pillar.includes('body')) iconChar = '○';
+
+                flowHtml += `
+                    <div class="flow-step">
+                        <div class="flow-pill ${step.pillar}">${iconChar}</div>
+                        <div>
+                            <div class="flow-text"><strong>${step.name}</strong></div>
+                            <span class="flow-desc">${step.desc}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            content.innerHTML = `
+                <div style="text-align: center;">
+                    <div class="modal-icon">${data.icon}</div>
+                    <h2 class="modal-title">${data.title}</h2>
+                    <p class="modal-tagline">${data.tagline}</p>
+                </div>
+                
+                <div class="modal-section-title">The Journey</div>
+                <div class="modal-flow">
+                    ${flowHtml}
+                </div>
+
+                <div class="modal-gem">
+                    ${data.gem}
+                </div>
+            `;
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(e) {
+            if (e) e.preventDefault();
+            const modal = document.getElementById('collectionModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    </script>
 </body>
 </html>
